@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
+using ImageGallery.API.Authorization;
 using ImageGallery.API.Entities;
 using ImageGallery.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,8 +28,25 @@ namespace ImageGallery.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
             services.AddControllers()
                      .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            //question: what if we had more than one custom handler we need to use?  
+            //the following line doesn't seem to allow for another mapping for IAuthorizationHandler 
+            services.AddScoped<IAuthorizationHandler, MustOwnImageHandler>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "MustOwnImage",
+                    policyBuilder =>
+                    {
+                        policyBuilder.RequireAuthenticatedUser();
+                        policyBuilder.AddRequirements(new MustOwnImageRequirement());
+                    });
+            });
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>

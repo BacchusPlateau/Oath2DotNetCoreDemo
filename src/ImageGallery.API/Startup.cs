@@ -53,6 +53,7 @@ namespace ImageGallery.API
                 {
                     options.Authority = "https://localhost:5001/";
                     options.ApiName = "imagegalleryapi";
+              //      options.ApiSecret = "apisecret";
                 });
 
             // register the DbContext on the container, getting the connection string from
@@ -86,7 +87,7 @@ namespace ImageGallery.API
                     appBuilder.Run(async context =>
                     {
                         // ensure generic 500 status code on fault.
-                        context.Response.StatusCode = StatusCodes.Status500InternalServerError; ;
+                        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                         await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
                     });
                 });

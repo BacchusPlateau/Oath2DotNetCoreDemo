@@ -107,7 +107,7 @@ namespace ImageGallery.Client
                     options.Scope.Add("imagegalleryapi");
                     options.Scope.Add("country");
                     options.Scope.Add("subscriptionlevel");
-                 //   options.Scope.Add("offline_access");  //allows token refreshing
+                    options.Scope.Add("offline_access");  //allows token refreshing
 
                     //for custom claims we have to manually configure
                     options.ClaimActions.MapUniqueJsonKey("role", "role");

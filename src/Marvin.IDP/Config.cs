@@ -50,9 +50,9 @@ namespace Marvin.IDP
                 new Client
                 {
                     //AccessTokenType = AccessTokenType.Reference,
-                    //AccessTokenLifetime = 120, //value is in seconds
-                    //AllowOfflineAccess = true,  //allows token refresh
-                    //UpdateAccessTokenClaimsOnRefresh = true, //for a refreshed token
+                    AccessTokenLifetime = 120, //value is in seconds
+                    AllowOfflineAccess = true,  //allows token refresh
+                    UpdateAccessTokenClaimsOnRefresh = true, //for a refreshed token
                     ClientName = "Image Gallery",
                     ClientId = "imagegalleryclient",
                     AllowedGrantTypes = GrantTypes.Code,
